@@ -1,0 +1,16 @@
+body{
+  direction: rtl;
+  text-align: right !important;
+  font-family: iransansdn !important;
+}
+.heder-top{
+  padding: 20px 20px 20px 20px;
+}
+.product{
+  padding: 5px;
+    border: 1px solid #6c757d;
+    margin-bottom: 22px;
+}
+.img-fluid{
+  width: 100%;
+}
