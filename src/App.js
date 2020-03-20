@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import Shop from './component/Shop'
 import Cart from './component/Cart';
 import Heder from './component/Heder';
+import About from './component/About';
+import Contact from './component/Contact';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import ToDo from './component/ToDo';
 export class App extends Component {
   constructor(props) {
     super(props)
@@ -18,11 +27,11 @@ export class App extends Component {
       .then(data => this.setState({
         products: data
       }))
-      if(localStorage.getItem('cartItems')){
-        this.setState({
-          cartItems: JSON.parse(localStorage.getItem('cartItems'))
-        })
-      }
+    if (localStorage.getItem('cartItems')) {
+      this.setState({
+        cartItems: JSON.parse(localStorage.getItem('cartItems'))
+      })
+    }
   }
 
   handelAddToCart(e, product) {
@@ -52,24 +61,31 @@ export class App extends Component {
   }
   render() {
     return (
-      <div className="container-fluid">
-        <Heder />
+      <Router>
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm-3 col-md-3 col-lg-3 ">
-              <Cart cartItems={this.state.cartItems}
-                handelRemoveCart={this.handelRemoveCart}
-              />
-            </div>
-            <div className="col-sm-9 col-md-9 col-lg-9 ">
-              <Shop
-                products={this.state.products}
-                handelAddToCart={this.handelAddToCart}
-              />
+          <Heder />
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-sm-3 col-md-3 col-lg-3 ">
+                <Cart cartItems={this.state.cartItems}
+                  handelRemoveCart={this.handelRemoveCart}
+                />
+              </div>
+              <div className="col-sm-9 col-md-9 col-lg-9 ">
+                <Route exact path="/" cp>
+                <Shop
+                  products={this.state.products}
+                  handelAddToCart={this.handelAddToCart}
+                />
+                </Route>
+                <Route exact path="/todo" component={ToDo} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/contact" component={Contact} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
